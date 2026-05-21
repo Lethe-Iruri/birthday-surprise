@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>生日快乐 · 专属惊喜</title>
-    <link rel="stylesheet" href="https://kkgithub.com/extdomains/fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
-    <script src="https://kkgithub.com/extdomains/cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
+    <!-- 使用官方 Supabase CDN，确保稳定加载 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -73,7 +74,7 @@
             border: 1px solid rgba(255,255,240,0.3);
         }
 
-        /* 四个核心页独立背景图 */
+        /* 四个核心页独立背景图（如果图片不存在，后备色正常显示） */
         #page1 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg1.jpg') no-repeat center center / cover;
             background-color: #fbe9f0;
@@ -390,8 +391,8 @@
         <div class="page-content">
             <div class="choose-box">
                 <h2>🎉 请选择你的身份 🎉</h2>
-                <button class="choose-btn" onclick="goToVerify()">🎂 我是吴佳钰本人</button>
-                <button class="choose-btn" onclick="goToFriend()">💌 我是朋友送祝福</button>
+                <button class="choose-btn" onclick="window.goToVerify()">🎂 我是吴佳钰本人</button>
+                <button class="choose-btn" onclick="window.goToFriend()">💌 我是朋友送祝福</button>
             </div>
         </div>
     </div>
@@ -402,10 +403,10 @@
             <div class="game-box" style="text-align: center; padding: 50px 20px;">
                 <h2>🔐 请输入专属密码</h2>
                 <input type="text" class="game-input" id="verifyPwd" placeholder="请输入密码" autocomplete="off" style="padding: 12px 18px; width: 260px; border: 2px solid #cfc0f0; border-radius: 60px; background: rgba(255,255,245,0.9); text-align: center;">
-                <button class="game-btn" onclick="checkVerify()" style="padding: 12px 28px; background: #9370db; color: white; border: none; border-radius: 60px; margin-left: 12px; cursor: pointer;">验证进入</button>
+                <button class="game-btn" onclick="window.checkVerify()" style="padding: 12px 28px; background: #9370db; color: white; border: none; border-radius: 60px; margin-left: 12px; cursor: pointer;">验证进入</button>
             </div>
             <div class="back-btn">
-                <button onclick="goToHome()">返回首页</button>
+                <button onclick="window.goToHome()">返回首页</button>
             </div>
         </div>
     </div>
@@ -422,7 +423,7 @@
                 <p class="cake-desc">愿所有温柔与惊喜，都如期奔赴于你</p>
             </div>
         </div>
-        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
     </div>
 
     <!-- 2 留言墙（云端跨设备） -->
@@ -433,7 +434,7 @@
                 <div class="loading">🌟 正在加载所有祝福...</div>
             </div>
         </div>
-        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
     </div>
 
     <!-- 4 彩蛋页（无需密码，直接展示惊喜） -->
@@ -453,7 +454,7 @@
                 <div style="margin-top: 30px; font-size: 44px;">🎁 🎂 💜</div>
             </div>
         </div>
-        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
     </div>
 
     <!-- 5 给你的信 -->
@@ -468,7 +469,7 @@
 💜 生日快乐，吴佳钰！ 💜
             </div>
         </div>
-        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
     </div>
 
     <!-- 朋友送祝福页 -->
@@ -482,9 +483,9 @@
                 <div class="input-group">
                     <textarea id="content" placeholder="留下你对吴佳钰的生日祝福吧～ 暖心的话会永远保留 💖" autocomplete="off"></textarea>
                 </div>
-                <button class="submit-btn" onclick="submitMessage()">✨ 提交祝福 ✨</button>
+                <button class="submit-btn" onclick="window.submitMessage()">✨ 提交祝福 ✨</button>
             </div>
-            <div class="back-btn" style="margin-top:30px;"><button onclick="goToHome()">返回首页</button></div>
+            <div class="back-btn" style="margin-top:30px;"><button onclick="window.goToHome()">返回首页</button></div>
         </div>
     </div>
 
@@ -496,18 +497,29 @@
 
 <script>
     // ======================== 配置 Supabase ========================
+    // 确保 Supabase 客户端已加载，如果未定义则报错提示
+    (function() {
+        if (typeof supabase === 'undefined') {
+            console.error("Supabase 加载失败，请检查网络后刷新页面");
+            alert("网络连接异常，无法加载留言功能，请刷新页面重试。");
+            return;
+        }
+    })();
+
+    // 定义常量（放在最前面，避免初始化前访问）
     const SUPABASE_URL = "https://rgiwrvpdsxhhrvdgydko.supabase.co";
     const SUPABASE_KEY = "sb_publishable_apXFBjyQq4lHaOTLxVaHQQ_DDso4WJb";
+    const PASSWORD = "1880";          // 专属密码
 
+    // 创建 Supabase 客户端
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // 有效页面ID列表（蛋糕、留言墙、彩蛋、信）
     const VALID_PAGES = [1, 2, 4, 5];
     let currentPageId = 1;        // 当前显示的有效页面ID
     let isAuthenticated = false;   // 是否已验证为本人（控制留言删除按钮显示）
-    const PASSWORD = "1880";
 
-    // 根据当前页面ID获取索引
+    // ========== 辅助函数 ==========
     function getCurrentIndex() {
         return VALID_PAGES.indexOf(currentPageId);
     }
@@ -525,32 +537,33 @@
                 ${pagesConfig.map(p => `<button data-page="${p.id}" class="${activeId === p.id ? 'active' : ''}">${p.name}</button>`).join('')}
             </div>
         `;
-        // 为每个存在 .quick-nav 的容器填充相同导航（页面1、2、4、5都有此容器）
+        // 为每个存在 .quick-nav 的容器填充相同导航
         const navContainers = document.querySelectorAll('#page1 .quick-nav, #page2 .quick-nav, #page4 .quick-nav, #page5 .quick-nav');
         navContainers.forEach(container => {
             if (container) container.innerHTML = navHtml;
         });
 
-        // 绑定点击事件
+        // 绑定点击事件（使用事件委托避免重复绑定）
         document.querySelectorAll('.quick-nav button').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const targetPage = parseInt(btn.dataset.page);
-                if (VALID_PAGES.includes(targetPage)) {
-                    showPage(targetPage);
-                }
-            });
+            btn.removeEventListener('click', handleNavClick);
+            btn.addEventListener('click', handleNavClick);
         });
     }
 
-    // 切换核心页面（仅允许 1,2,4,5）
+    function handleNavClick(e) {
+        const targetPage = parseInt(e.currentTarget.dataset.page);
+        if (VALID_PAGES.includes(targetPage)) {
+            showPage(targetPage);
+        }
+    }
+
+    // 切换核心页面
     function showPage(pageId) {
         if (!VALID_PAGES.includes(pageId)) return;
-        // 隐藏所有页面
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(`page${pageId}`).classList.add('active');
         currentPageId = pageId;
 
-        // 显示翻页按钮区域
         const navButtons = document.getElementById('navButtons');
         navButtons.style.display = 'block';
 
@@ -558,14 +571,12 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
-        // 上一页按钮逻辑
         if (currentIdx === 0) {
             prevBtn.style.display = 'none';
         } else {
             prevBtn.style.display = 'inline-block';
         }
 
-        // 下一页按钮逻辑
         if (currentIdx === VALID_PAGES.length - 1) {
             nextBtn.innerText = "✨ 最后一页 ✨";
             nextBtn.disabled = true;
@@ -574,60 +585,52 @@
             nextBtn.disabled = false;
         }
 
-        // 每次进入留言墙时刷新数据（根据 isAuthenticated 显示删除按钮）
         if (pageId === 2) loadCloudMessages();
-
-        // 刷新快捷导航高亮
         renderQuickNav(pageId);
     }
 
-    // 上一页
     function goPrev() {
         const idx = getCurrentIndex();
-        if (idx > 0) {
-            showPage(VALID_PAGES[idx - 1]);
-        }
+        if (idx > 0) showPage(VALID_PAGES[idx - 1]);
     }
 
-    // 下一页
     function goNext() {
         const idx = getCurrentIndex();
-        if (idx < VALID_PAGES.length - 1) {
-            showPage(VALID_PAGES[idx + 1]);
-        }
+        if (idx < VALID_PAGES.length - 1) showPage(VALID_PAGES[idx + 1]);
     }
 
-    // 本人密码验证（入口）
-    function checkVerify() {
-        const val = document.getElementById("verifyPwd").value.trim();
+    // 本人密码验证
+    window.checkVerify = function() {
+        const inputEl = document.getElementById("verifyPwd");
+        if (!inputEl) return;
+        const val = inputEl.value.trim();
         if (val === PASSWORD) {
             isAuthenticated = true;
-            // 验证成功后显示蛋糕页（第一个有效页面）
             showPage(1);
         } else {
             alert("🔐 密码不正确哦！再试试看～");
         }
-    }
+    };
 
-    // 返回首页（身份选择）
-    function goToHome() {
+    // 返回首页
+    window.goToHome = function() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page0').classList.add('active');
         document.getElementById('navButtons').style.display = 'none';
-        currentPageId = 1;  // 重置当前记录
-    }
+        currentPageId = 1;
+    };
 
-    function goToVerify() {
+    window.goToVerify = function() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('verifyPage').classList.add('active');
-    }
+    };
 
-    function goToFriend() {
+    window.goToFriend = function() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('friendPage').classList.add('active');
-    }
+    };
 
-    // 删除留言（仅本人验证后可用）
+    // 删除留言
     async function deleteMessage(id, cardElement) {
         if (!confirm("确定要删除这条祝福吗？删除后无法恢复。")) return;
         try {
@@ -647,26 +650,22 @@
         }
     }
 
-    // 加载留言墙（根据 isAuthenticated 显示删除按钮）
+    // 加载留言墙
     async function loadCloudMessages() {
         const box = document.getElementById("mainMessageWall");
         if (!box) return;
         box.innerHTML = '<div class="loading">💬 云端加载祝福中...</div>';
-
         try {
             let { data: list, error } = await supabaseClient
                 .from('birthday-wishes')
                 .select('*')
                 .order('created_at', { ascending: false });
-
             if (error) throw error;
             box.innerHTML = "";
-
             if (!list || list.length === 0) {
                 box.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#7b68ee;font-size:18px;">🌟 暂无祝福，你愿意成为第一个送祝福的人吗？ 🌟</p>';
                 return;
             }
-
             list.forEach(item => {
                 const card = document.createElement("div");
                 card.className = "message-card";
@@ -678,7 +677,6 @@
                 textP.textContent = item.content || "祝福满满～";
                 card.appendChild(nameDiv);
                 card.appendChild(textP);
-
                 if (isAuthenticated) {
                     const delBtn = document.createElement("button");
                     delBtn.textContent = "✖ 删除";
@@ -695,10 +693,9 @@
     }
 
     // 朋友提交祝福
-    async function submitMessage() {
+    window.submitMessage = async function() {
         let name = document.getElementById("name").value.trim();
         let content = document.getElementById("content").value.trim();
-
         if (!name || !content) {
             alert("请填写完整名字和祝福内容～");
             return;
@@ -713,29 +710,24 @@
             alert("🎉 祝福提交成功！已经永久保存在云端啦 🎉");
             document.getElementById("name").value = "";
             document.getElementById("content").value = "";
-            // 如果当前在留言墙页面，刷新显示新留言
             if (currentPageId === 2) loadCloudMessages();
         } catch (err) {
             alert("提交失败，请稍后重试 T_T");
             console.error(err);
         }
-    }
+    };
 
-    // 绑定上一页/下一页按钮事件
+    // 绑定翻页按钮
     document.getElementById('prevBtn')?.addEventListener('click', goPrev);
     document.getElementById('nextBtn')?.addEventListener('click', goNext);
 
-    // 挂载全局方法
-    window.goToHome = goToHome;
-    window.goToVerify = goToVerify;
-    window.goToFriend = goToFriend;
-    window.checkVerify = checkVerify;
-    window.submitMessage = submitMessage;
-    window.deleteMessage = deleteMessage;
-    window.loadCloudMessages = loadCloudMessages;
-
-    // 初始隐藏翻页按钮（身份选择页不显示）
+    // 初始隐藏翻页按钮
     document.getElementById('navButtons').style.display = 'none';
+
+    // 暴露全局方法供 onclick 使用（有些内联可能未绑定到 window，确保可用）
+    window.showPage = showPage;
+    window.loadCloudMessages = loadCloudMessages;
+    window.deleteMessage = deleteMessage;
 </script>
 </body>
 </html>
