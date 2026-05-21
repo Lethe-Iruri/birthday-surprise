@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>生日快乐 · 专属惊喜</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
-    <!-- 使用官方 Supabase CDN，确保稳定加载 -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://kkgithub.com/extdomains/fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
+    <script src="https://kkgithub.com/extdomains/cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -46,12 +45,13 @@
             z-index: 10;
         }
 
+        /* 页面基础样式 */
         .page {
             display: none;
             animation: fade 0.5s ease;
             min-height: 600px;
             border-radius: 28px;
-            overflow: hidden;
+            overflow: hidden;      /* 让背景圆角生效，且避免内容溢出 */
             transition: all 0.2s;
         }
         .page.active {
@@ -63,6 +63,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* 内容卡片 - 半透磨砂效果，保证文字清晰且背景透出 */
         .page-content {
             background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(12px);
@@ -74,14 +75,19 @@
             border: 1px solid rgba(255,255,240,0.3);
         }
 
-        /* 四个核心页独立背景图（如果图片不存在，后备色正常显示） */
+        /* ========= 为五个核心TAP页添加独立背景图 (bg1 ~ bg5) ========= */
+        /* 背景图片位于.page层，自然处于所有文字和图层的下方 */
         #page1 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg1.jpg') no-repeat center center / cover;
-            background-color: #fbe9f0;
+            background-color: #fbe9f0;  /* 加载失败时的友好后备色 */
         }
         #page2 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg2.jpg') no-repeat center center / cover;
             background-color: #e8f0fe;
+        }
+        #page3 {
+            background: url('/231025-tian/birthday-surprise/edit/main/bg3.jpg') no-repeat center center / cover;
+            background-color: #f0f3da;
         }
         #page4 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg4.jpg') no-repeat center center / cover;
@@ -92,12 +98,13 @@
             background-color: #f9e9ff;
         }
 
-        #page1, #page2, #page4, #page5 {
+        /* 让背景图片区域拥有优雅圆角（和页面融为一体） */
+        #page1, #page2, #page3, #page4, #page5 {
             border-radius: 28px;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
         }
 
-        /* 身份选择、验证、朋友页透明背景 */
+        /* 其余页面（身份选择、验证、朋友页）保留原始渐变背景，无背景图干扰 */
         #page0, #verifyPage, #friendPage {
             background: transparent;
         }
@@ -190,6 +197,53 @@
             backdrop-filter: blur(2px);
         }
 
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #c2b0f0;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+            padding-left: 28px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #9370db;
+            box-shadow: 0 0 0 3px rgba(147,112,219,0.3);
+        }
+        .time-date {
+            color: #6a4e9b;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        .time-text {
+            color: #1e2f3e;
+            line-height: 1.8;
+            font-size: 17px;
+            background: rgba(255,255,240,0.4);
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
         .message-wall {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -236,6 +290,52 @@
         .del-btn:hover {
             background: #e96350;
             transform: scale(1.02);
+        }
+
+        .game-box {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .game-box h2 {
+            color: #7b68ee;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+        .game-input {
+            padding: 12px 18px;
+            width: 260px;
+            border: 2px solid #cfc0f0;
+            border-radius: 60px;
+            font-size: 17px;
+            outline: none;
+            background: rgba(255,255,245,0.9);
+            text-align: center;
+        }
+        .game-btn {
+            padding: 12px 28px;
+            background: #9370db;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            margin-left: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 17px;
+        }
+        .game-btn:hover {
+            background: #7b68ee;
+            transform: translateY(-2px);
+        }
+        .secret-msg {
+            margin-top: 28px;
+            font-size: 22px;
+            color: #b45fbb;
+            display: none;
+            font-weight: 500;
+            background: rgba(255,255,210,0.7);
+            padding: 14px;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
         }
 
         .cake-page {
@@ -348,23 +448,6 @@
             font-size: 18px;
             padding: 40px;
         }
-        .secret-gift {
-            background: rgba(255, 245, 220, 0.85);
-            border-radius: 48px;
-            padding: 30px 25px;
-            margin-top: 20px;
-            backdrop-filter: blur(5px);
-            border: 1px solid #ffd9a5;
-        }
-        .secret-gift h3 {
-            font-size: 28px;
-            color: #c95a9a;
-            margin-bottom: 16px;
-        }
-        .gift-emoji {
-            font-size: 70px;
-            margin: 15px 0;
-        }
 
         @media (max-width: 650px) {
             .page-content {
@@ -391,27 +474,27 @@
         <div class="page-content">
             <div class="choose-box">
                 <h2>🎉 请选择你的身份 🎉</h2>
-                <button class="choose-btn" onclick="window.goToVerify()">🎂 我是吴佳钰本人</button>
-                <button class="choose-btn" onclick="window.goToFriend()">💌 我是朋友送祝福</button>
+                <button class="choose-btn" onclick="goToVerify()">🎂 我是吴佳钰本人</button>
+                <button class="choose-btn" onclick="goToFriend()">💌 我是朋友送祝福</button>
             </div>
         </div>
     </div>
 
-    <!-- 密码验证页（仅本人进入） -->
+    <!-- 密码验证页 -->
     <div class="page" id="verifyPage">
         <div class="page-content">
-            <div class="game-box" style="text-align: center; padding: 50px 20px;">
+            <div class="game-box">
                 <h2>🔐 请输入专属密码</h2>
-                <input type="text" class="game-input" id="verifyPwd" placeholder="请输入密码" autocomplete="off" style="padding: 12px 18px; width: 260px; border: 2px solid #cfc0f0; border-radius: 60px; background: rgba(255,255,245,0.9); text-align: center;">
-                <button class="game-btn" onclick="window.checkVerify()" style="padding: 12px 28px; background: #9370db; color: white; border: none; border-radius: 60px; margin-left: 12px; cursor: pointer;">验证进入</button>
+                <input type="text" class="game-input" id="verifyPwd" placeholder="请输入密码" autocomplete="off">
+                <button class="game-btn" onclick="checkVerify()">验证进入</button>
             </div>
             <div class="back-btn">
-                <button onclick="window.goToHome()">返回首页</button>
+                <button onclick="goToHome()">返回首页</button>
             </div>
         </div>
     </div>
 
-    <!-- 1 生日蛋糕页 -->
+    <!-- 1 生日蛋糕页 (tap1) -->
     <div class="page" id="page1">
         <div class="page-content">
             <div class="quick-nav" id="quickNav1"></div>
@@ -423,10 +506,10 @@
                 <p class="cake-desc">愿所有温柔与惊喜，都如期奔赴于你</p>
             </div>
         </div>
-        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 2 留言墙（云端跨设备） -->
+    <!-- 2 留言墙（云端跨设备）tap2 -->
     <div class="page" id="page2">
         <div class="page-content">
             <div class="quick-nav" id="quickNav2"></div>
@@ -434,30 +517,51 @@
                 <div class="loading">🌟 正在加载所有祝福...</div>
             </div>
         </div>
-        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 4 彩蛋页（无需密码，直接展示惊喜） -->
+    <!-- 3 时光轴 tap3 -->
+    <div class="page" id="page3">
+        <div class="page-content">
+            <div class="quick-nav" id="quickNav3"></div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time-date">💜 2021年4月5日</div>
+                    <div class="time-text">我们初次相遇，当时只以为是萍水相逢。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-date">📚 2022年8月31日</div>
+                    <div class="time-text">我们在高中的教室里相遇，我们开始慢慢熟悉，友谊的长河也开始奔腾。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-date">✨ 2025年6月30日</div>
+                    <div class="time-text">我们重新加上了彼此的好友，友谊的小船再次起航。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-date">🎂 今年生日</div>
+                    <div class="time-text">愿往后岁岁年年，我们仍然可以是朋友。永远自在明亮。</div>
+                </div>
+            </div>
+        </div>
+        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
+    </div>
+
+    <!-- 4 密码彩蛋页 tap4 -->
     <div class="page" id="page4">
         <div class="page-content">
             <div class="quick-nav" id="quickNav4"></div>
-            <div class="secret-gift">
-                <h3>🎁 专属生日惊喜 🎁</h3>
-                <div class="gift-emoji">🎂✨💖🎈</div>
-                <p style="font-size: 22px; color: #b45fbb; font-weight: bold; margin: 20px 0;">🌟 这是一份为你准备的心意 🌟</p>
-                <p style="font-size: 18px; line-height: 1.6; background: rgba(255,240,210,0.6); padding: 18px; border-radius: 32px;">
-                    🎀 亲爱的吴佳钰，生日快乐！<br>
-                    不用任何密码，这里就是只属于你的小确幸。<br>
-                    凭此页面截图即可领取专属生日礼物哟 💝<br>
-                    愿所有的美好都在今天降临，每一天都闪闪发光✨
-                </p>
-                <div style="margin-top: 30px; font-size: 44px;">🎁 🎂 💜</div>
+            <div class="game-box">
+                <h2>🎁 解锁专属小惊喜 🔐</h2>
+                <p style="margin:12px 0; color:#4e3a6e; font-size:17px;">输入专属密码，查看小惊喜 ✨</p>
+                <input type="text" class="game-input" id="pwdInput" placeholder="请输入密码" autocomplete="off">
+                <button class="game-btn" onclick="checkPwd()">立即解锁</button>
+                <div class="secret-msg" id="secret">🎁 密码正确啦！记得凭此页面截图领取生日礼物哦 💝</div>
             </div>
         </div>
-        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 5 给你的信 -->
+    <!-- 5 给你的信 tap5 -->
     <div class="page" id="page5">
         <div class="page-content">
             <div class="quick-nav" id="quickNav5"></div>
@@ -469,7 +573,7 @@
 💜 生日快乐，吴佳钰！ 💜
             </div>
         </div>
-        <div class="back-btn"><button onclick="window.goToHome()">返回首页</button></div>
+        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
     <!-- 朋友送祝福页 -->
@@ -483,9 +587,9 @@
                 <div class="input-group">
                     <textarea id="content" placeholder="留下你对吴佳钰的生日祝福吧～ 暖心的话会永远保留 💖" autocomplete="off"></textarea>
                 </div>
-                <button class="submit-btn" onclick="window.submitMessage()">✨ 提交祝福 ✨</button>
+                <button class="submit-btn" onclick="submitMessage()">✨ 提交祝福 ✨</button>
             </div>
-            <div class="back-btn" style="margin-top:30px;"><button onclick="window.goToHome()">返回首页</button></div>
+            <div class="back-btn" style="margin-top:30px;"><button onclick="goToHome()">返回首页</button></div>
         </div>
     </div>
 
@@ -497,87 +601,61 @@
 
 <script>
     // ======================== 配置 Supabase ========================
-    // 确保 Supabase 客户端已加载，如果未定义则报错提示
-    (function() {
-        if (typeof supabase === 'undefined') {
-            console.error("Supabase 加载失败，请检查网络后刷新页面");
-            alert("网络连接异常，无法加载留言功能，请刷新页面重试。");
-            return;
-        }
-    })();
-
-    // 定义常量（放在最前面，避免初始化前访问）
     const SUPABASE_URL = "https://rgiwrvpdsxhhrvdgydko.supabase.co";
     const SUPABASE_KEY = "sb_publishable_apXFBjyQq4lHaOTLxVaHQQ_DDso4WJb";
-    const PASSWORD = "1880";          // 专属密码
 
-    // 创建 Supabase 客户端
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // 有效页面ID列表（蛋糕、留言墙、彩蛋、信）
-    const VALID_PAGES = [1, 2, 4, 5];
-    let currentPageId = 1;        // 当前显示的有效页面ID
-    let isAuthenticated = false;   // 是否已验证为本人（控制留言删除按钮显示）
+    // 全局变量
+    let currentPage = 0;
+    const TOTAL_PAGE = 5;
+    const PASSWORD = "1880";
+    let isAuthenticated = false;   // 是否已验证为本人（控制删除按钮显示）
 
-    // ========== 辅助函数 ==========
-    function getCurrentIndex() {
-        return VALID_PAGES.indexOf(currentPageId);
-    }
-
-    // 渲染四个核心tab的快捷导航
-    function renderQuickNav(activeId) {
+    // 渲染五个核心tab的快捷导航
+    function renderQuickNav(currentNum) {
         const pagesConfig = [
             { name: "🎂 蛋糕", id: 1 },
             { name: "💬 留言墙", id: 2 },
+            { name: "📅 时光轴", id: 3 },
             { name: "🎁 彩蛋", id: 4 },
             { name: "💌 信", id: 5 }
         ];
         const navHtml = `
             <div class="quick-nav">
-                ${pagesConfig.map(p => `<button data-page="${p.id}" class="${activeId === p.id ? 'active' : ''}">${p.name}</button>`).join('')}
+                ${pagesConfig.map(p => `<button data-page="${p.id}" class="${currentNum === p.id ? 'active' : ''}">${p.name}</button>`).join('')}
             </div>
         `;
-        // 为每个存在 .quick-nav 的容器填充相同导航
-        const navContainers = document.querySelectorAll('#page1 .quick-nav, #page2 .quick-nav, #page4 .quick-nav, #page5 .quick-nav');
-        navContainers.forEach(container => {
+        // 为每个包含快捷栏的容器填充相同导航
+        for (let i = 1; i <= 5; i++) {
+            const containerId = `quickNav${i === 1 ? '1' : i}`;
+            const container = document.getElementById(containerId);
             if (container) container.innerHTML = navHtml;
-        });
-
-        // 绑定点击事件（使用事件委托避免重复绑定）
-        document.querySelectorAll('.quick-nav button').forEach(btn => {
-            btn.removeEventListener('click', handleNavClick);
-            btn.addEventListener('click', handleNavClick);
-        });
-    }
-
-    function handleNavClick(e) {
-        const targetPage = parseInt(e.currentTarget.dataset.page);
-        if (VALID_PAGES.includes(targetPage)) {
-            showPage(targetPage);
         }
+        // 绑定事件
+        document.querySelectorAll('.quick-nav button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const pageNum = parseInt(btn.dataset.page);
+                if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= 5) {
+                    showPage(pageNum);
+                }
+            });
+        });
     }
 
-    // 切换核心页面
-    function showPage(pageId) {
-        if (!VALID_PAGES.includes(pageId)) return;
+    // 切换主要内部页面（蛋糕/留言墙/时光轴/彩蛋/信）
+    function showPage(n) {
+        if (n < 1 || n > 5) return;
+        // 隐藏所有页面，显示对应页
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(`page${pageId}`).classList.add('active');
-        currentPageId = pageId;
+        document.getElementById(`page${n}`).classList.add('active');
+        currentPage = n;
 
         const navButtons = document.getElementById('navButtons');
         navButtons.style.display = 'block';
-
-        const currentIdx = getCurrentIndex();
-        const prevBtn = document.getElementById('prevBtn');
+        document.getElementById('prevBtn').style.display = (n === 1) ? 'none' : 'inline-block';
         const nextBtn = document.getElementById('nextBtn');
-
-        if (currentIdx === 0) {
-            prevBtn.style.display = 'none';
-        } else {
-            prevBtn.style.display = 'inline-block';
-        }
-
-        if (currentIdx === VALID_PAGES.length - 1) {
+        if (n === TOTAL_PAGE) {
             nextBtn.innerText = "✨ 最后一页 ✨";
             nextBtn.disabled = true;
         } else {
@@ -585,52 +663,54 @@
             nextBtn.disabled = false;
         }
 
-        if (pageId === 2) loadCloudMessages();
-        renderQuickNav(pageId);
+        // 每次进入留言墙刷新数据，以便根据isAuthenticated更新删除按钮
+        if (n === 2) loadCloudMessages();
+        renderQuickNav(n);
     }
 
-    function goPrev() {
-        const idx = getCurrentIndex();
-        if (idx > 0) showPage(VALID_PAGES[idx - 1]);
-    }
-
-    function goNext() {
-        const idx = getCurrentIndex();
-        if (idx < VALID_PAGES.length - 1) showPage(VALID_PAGES[idx + 1]);
-    }
-
-    // 本人密码验证
-    window.checkVerify = function() {
-        const inputEl = document.getElementById("verifyPwd");
-        if (!inputEl) return;
-        const val = inputEl.value.trim();
+    // 密码验证（从身份验证入口）
+    function checkVerify() {
+        const val = document.getElementById("verifyPwd").value.trim();
         if (val === PASSWORD) {
             isAuthenticated = true;
             showPage(1);
         } else {
             alert("🔐 密码不正确哦！再试试看～");
         }
-    };
+    }
 
-    // 返回首页
-    window.goToHome = function() {
+    // 彩蛋页的密码验证，验证成功同样给管理权限并显示秘语
+    function checkPwd() {
+        const val = document.getElementById("pwdInput").value.trim();
+        if (val === PASSWORD) {
+            document.getElementById("secret").style.display = "block";
+            isAuthenticated = true;
+            // 如果当前在留言墙页面，刷新显示删除按钮
+            if (currentPage === 2) loadCloudMessages();
+        } else {
+            alert("❌ 密码错误，小惊喜暂未解锁~");
+        }
+    }
+
+    // 返回首页（身份选择）
+    function goToHome() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page0').classList.add('active');
         document.getElementById('navButtons').style.display = 'none';
-        currentPageId = 1;
-    };
+        currentPage = 0;
+    }
 
-    window.goToVerify = function() {
+    function goToVerify() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('verifyPage').classList.add('active');
-    };
+    }
 
-    window.goToFriend = function() {
+    function goToFriend() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('friendPage').classList.add('active');
-    };
+    }
 
-    // 删除留言
+    // ======================== 删除留言功能 ========================
     async function deleteMessage(id, cardElement) {
         if (!confirm("确定要删除这条祝福吗？删除后无法恢复。")) return;
         try {
@@ -650,22 +730,26 @@
         }
     }
 
-    // 加载留言墙
+    // ======================== 加载留言墙（带删除按钮判断） ========================
     async function loadCloudMessages() {
         const box = document.getElementById("mainMessageWall");
         if (!box) return;
         box.innerHTML = '<div class="loading">💬 云端加载祝福中...</div>';
+
         try {
             let { data: list, error } = await supabaseClient
                 .from('birthday-wishes')
                 .select('*')
                 .order('created_at', { ascending: false });
+
             if (error) throw error;
             box.innerHTML = "";
+
             if (!list || list.length === 0) {
                 box.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#7b68ee;font-size:18px;">🌟 暂无祝福，你愿意成为第一个送祝福的人吗？ 🌟</p>';
                 return;
             }
+
             list.forEach(item => {
                 const card = document.createElement("div");
                 card.className = "message-card";
@@ -677,6 +761,7 @@
                 textP.textContent = item.content || "祝福满满～";
                 card.appendChild(nameDiv);
                 card.appendChild(textP);
+
                 if (isAuthenticated) {
                     const delBtn = document.createElement("button");
                     delBtn.textContent = "✖ 删除";
@@ -692,10 +777,11 @@
         }
     }
 
-    // 朋友提交祝福
-    window.submitMessage = async function() {
+    // 提交祝福（朋友使用）
+    async function submitMessage() {
         let name = document.getElementById("name").value.trim();
         let content = document.getElementById("content").value.trim();
+
         if (!name || !content) {
             alert("请填写完整名字和祝福内容～");
             return;
@@ -710,24 +796,34 @@
             alert("🎉 祝福提交成功！已经永久保存在云端啦 🎉");
             document.getElementById("name").value = "";
             document.getElementById("content").value = "";
-            if (currentPageId === 2) loadCloudMessages();
+            if (currentPage === 2) loadCloudMessages();
         } catch (err) {
             alert("提交失败，请稍后重试 T_T");
             console.error(err);
         }
-    };
+    }
 
-    // 绑定翻页按钮
-    document.getElementById('prevBtn')?.addEventListener('click', goPrev);
-    document.getElementById('nextBtn')?.addEventListener('click', goNext);
+    // 翻页（上一页/下一页）
+    document.getElementById('nextBtn')?.addEventListener('click', () => {
+        if (currentPage < TOTAL_PAGE) showPage(currentPage + 1);
+    });
+    document.getElementById('prevBtn')?.addEventListener('click', () => {
+        if (currentPage > 1) showPage(currentPage - 1);
+    });
 
-    // 初始隐藏翻页按钮
-    document.getElementById('navButtons').style.display = 'none';
-
-    // 暴露全局方法供 onclick 使用（有些内联可能未绑定到 window，确保可用）
-    window.showPage = showPage;
-    window.loadCloudMessages = loadCloudMessages;
+    // 全局方法挂载
+    window.goToHome = goToHome;
+    window.goToVerify = goToVerify;
+    window.goToFriend = goToFriend;
+    window.checkVerify = checkVerify;
+    window.checkPwd = checkPwd;
+    window.submitMessage = submitMessage;
     window.deleteMessage = deleteMessage;
+    window.loadCloudMessages = loadCloudMessages;
+
+    // 初始渲染导航 (在需要展示的时候会触发)
+    // 确保一开始身份页没有导航条
+    document.getElementById('navButtons').style.display = 'none';
 </script>
 </body>
 </html>
