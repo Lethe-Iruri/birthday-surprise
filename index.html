@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>生日快乐 · 专属惊喜</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://kkgithub.com/extdomains/fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
+    <script src="https://kkgithub.com/extdomains/cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -73,7 +73,7 @@
             border: 1px solid rgba(255,255,240,0.3);
         }
 
-        /* 三个核心页独立背景图 */
+        /* 四个核心页独立背景图 */
         #page1 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg1.jpg') no-repeat center center / cover;
             background-color: #fbe9f0;
@@ -82,12 +82,16 @@
             background: url('/231025-tian/birthday-surprise/edit/main/bg2.jpg') no-repeat center center / cover;
             background-color: #e8f0fe;
         }
+        #page4 {
+            background: url('/231025-tian/birthday-surprise/edit/main/bg4.jpg') no-repeat center center / cover;
+            background-color: #ffe6f0;
+        }
         #page5 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg5.jpg') no-repeat center center / cover;
             background-color: #f9e9ff;
         }
 
-        #page1, #page2, #page5 {
+        #page1, #page2, #page4, #page5 {
             border-radius: 28px;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
         }
@@ -343,6 +347,23 @@
             font-size: 18px;
             padding: 40px;
         }
+        .secret-gift {
+            background: rgba(255, 245, 220, 0.85);
+            border-radius: 48px;
+            padding: 30px 25px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid #ffd9a5;
+        }
+        .secret-gift h3 {
+            font-size: 28px;
+            color: #c95a9a;
+            margin-bottom: 16px;
+        }
+        .gift-emoji {
+            font-size: 70px;
+            margin: 15px 0;
+        }
 
         @media (max-width: 650px) {
             .page-content {
@@ -415,16 +436,36 @@
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
+    <!-- 4 彩蛋页（无需密码，直接展示惊喜） -->
+    <div class="page" id="page4">
+        <div class="page-content">
+            <div class="quick-nav" id="quickNav4"></div>
+            <div class="secret-gift">
+                <h3>🎁 专属生日惊喜 🎁</h3>
+                <div class="gift-emoji">🎂✨💖🎈</div>
+                <p style="font-size: 22px; color: #b45fbb; font-weight: bold; margin: 20px 0;">🌟 这是一份为你准备的心意 🌟</p>
+                <p style="font-size: 18px; line-height: 1.6; background: rgba(255,240,210,0.6); padding: 18px; border-radius: 32px;">
+                    🎀 亲爱的吴佳钰，生日快乐！<br>
+                    不用任何密码，这里就是只属于你的小确幸。<br>
+                    凭此页面截图即可领取专属生日礼物哟 💝<br>
+                    愿所有的美好都在今天降临，每一天都闪闪发光✨
+                </p>
+                <div style="margin-top: 30px; font-size: 44px;">🎁 🎂 💜</div>
+            </div>
+        </div>
+        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
+    </div>
+
     <!-- 5 给你的信 -->
     <div class="page" id="page5">
         <div class="page-content">
             <div class="quick-nav" id="quickNav5"></div>
             <div class="letter">
 ✨ 提笔写下这些话，只想认真祝你生日快乐。<br><br>
-特意做了这个小小的网站，把祝福和想说的话都放在这里。<br>
+特意为你做了这个小小的专属网站，把祝福、心意和所有想说的话都藏在这里。<br>
 希望往后岁岁年年，你永远被温柔以待，永远自在明亮，永远保持自己喜欢的模样。<br>
-愿清风绕肩，美好常驻。<br><br>
-祝你生日快乐！以后不会再打扰啦！ 
+愿清风绕肩，美好常驻，而我们，会一直是好朋友。<br><br>
+💜 生日快乐，吴佳钰！ 💜
             </div>
         </div>
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
@@ -460,8 +501,8 @@
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // 有效页面ID列表（只保留蛋糕、留言墙、信）
-    const VALID_PAGES = [1, 2, 5];
+    // 有效页面ID列表（蛋糕、留言墙、彩蛋、信）
+    const VALID_PAGES = [1, 2, 4, 5];
     let currentPageId = 1;        // 当前显示的有效页面ID
     let isAuthenticated = false;   // 是否已验证为本人（控制留言删除按钮显示）
     const PASSWORD = "1880";
@@ -471,20 +512,21 @@
         return VALID_PAGES.indexOf(currentPageId);
     }
 
-    // 渲染三个核心tab的快捷导航 (只显示蛋糕、留言墙、信)
+    // 渲染四个核心tab的快捷导航
     function renderQuickNav(activeId) {
         const pagesConfig = [
             { name: "🎂 蛋糕", id: 1 },
             { name: "💬 留言墙", id: 2 },
-            { name: " 信", id: 5 }
+            { name: "🎁 彩蛋", id: 4 },
+            { name: "💌 信", id: 5 }
         ];
         const navHtml = `
             <div class="quick-nav">
                 ${pagesConfig.map(p => `<button data-page="${p.id}" class="${activeId === p.id ? 'active' : ''}">${p.name}</button>`).join('')}
             </div>
         `;
-        // 为每个存在 .quick-nav 的容器填充相同导航（页面1、2、5都有此容器）
-        const navContainers = document.querySelectorAll('#page1 .quick-nav, #page2 .quick-nav, #page5 .quick-nav');
+        // 为每个存在 .quick-nav 的容器填充相同导航（页面1、2、4、5都有此容器）
+        const navContainers = document.querySelectorAll('#page1 .quick-nav, #page2 .quick-nav, #page4 .quick-nav, #page5 .quick-nav');
         navContainers.forEach(container => {
             if (container) container.innerHTML = navHtml;
         });
@@ -500,7 +542,7 @@
         });
     }
 
-    // 切换核心页面（仅允许 1,2,5）
+    // 切换核心页面（仅允许 1,2,4,5）
     function showPage(pageId) {
         if (!VALID_PAGES.includes(pageId)) return;
         // 隐藏所有页面
@@ -694,8 +736,6 @@
 
     // 初始隐藏翻页按钮（身份选择页不显示）
     document.getElementById('navButtons').style.display = 'none';
-    // 预渲染导航样式（但初始页面还未显示核心页，等验证成功后再显示，届时渲染）
-    // 为了保证首次验证后能正常显示导航，在 showPage 中会调用 renderQuickNav，无需额外操作
 </script>
 </body>
 </html>
