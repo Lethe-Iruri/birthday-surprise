@@ -78,7 +78,7 @@
             border: 1px solid rgba(255,255,240,0.3);
         }
 
-        /* 背景图优雅降级 - 已移除时光轴页面(page3)，重新对应蛋糕/留言墙/彩蛋/信 */
+        /* 背景图优雅降级 - 蛋糕/留言墙/彩蛋/信 */
         #page1 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg1.jpg') no-repeat center center / cover;
             background-color: #fbe9f0;
@@ -232,6 +232,75 @@
             transform: scale(1.02);
         }
 
+        /* 全新彩蛋页样式：两张图片 + 文字 */
+        .easter-egg {
+            text-align: center;
+            padding: 20px 10px;
+        }
+        .egg-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            margin: 30px 0 25px;
+        }
+        .egg-card {
+            flex: 0 0 260px;
+            max-width: 90%;
+            background: rgba(255,250,245,0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 18px 12px 14px;
+            transition: transform 0.2s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .egg-card:hover {
+            transform: translateY(-6px);
+        }
+        .egg-img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 24px;
+            background: #fff9ef;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .egg-label {
+            margin-top: 14px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #9b4b8e;
+            background: rgba(255,250,210,0.7);
+            display: inline-block;
+            padding: 4px 18px;
+            border-radius: 40px;
+        }
+        .egg-text {
+            margin-top: 32px;
+            background: rgba(255,240,245,0.85);
+            padding: 24px 20px;
+            border-radius: 48px;
+            font-size: 20px;
+            color: #5a3e6e;
+            line-height: 1.65;
+            backdrop-filter: blur(4px);
+            font-weight: 500;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,225,200,0.8);
+        }
+        @media (max-width: 600px) {
+            .egg-card {
+                flex: 0 0 220px;
+            }
+            .egg-text {
+                font-size: 17px;
+                padding: 20px 16px;
+            }
+        }
+
         .game-box {
             text-align: center;
             padding: 50px 20px;
@@ -265,17 +334,6 @@
         .game-btn:hover {
             background: #7b68ee;
             transform: translateY(-2px);
-        }
-        .secret-msg {
-            margin-top: 28px;
-            font-size: 22px;
-            color: #b45fbb;
-            display: none;
-            font-weight: 500;
-            background: rgba(255,255,210,0.7);
-            padding: 14px;
-            border-radius: 60px;
-            backdrop-filter: blur(5px);
         }
 
         .cake-page {
@@ -462,22 +520,35 @@
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 3 彩蛋页（原page4，现成为第3页） -->
+    <!-- 3 彩蛋页 · 全新两张图片 + 文字 (原有彩蛋密码移除，变成温馨彩蛋展示) -->
     <div class="page" id="page3">
         <div class="page-content">
             <div class="quick-nav" id="quickNav3"></div>
-            <div class="game-box">
-                <h2>🎁 解锁专属小惊喜 🔐</h2>
-                <p style="margin:12px 0; color:#4e3a6e; font-size:17px;">输入专属密码，查看小惊喜 ✨</p>
-                <input type="text" class="game-input" id="pwdInput" placeholder="请输入密码" autocomplete="off">
-                <button class="game-btn" onclick="checkPwd()">立即解锁</button>
-                <div class="secret-msg" id="secret">🎁 密码正确啦！记得凭此页面截图领取生日礼物哦 💝</div>
+            <div class="easter-egg">
+                <h2 style="color: #a572c6; font-size: 28px; margin-bottom: 8px;">🎁 专属彩蛋 · 为你珍藏 🎁</h2>
+                <div class="egg-images">
+                    <div class="egg-card">
+                        <img class="egg-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23FFE4E1'/%3E%3Ccircle cx='100' cy='90' r='50' fill='%23FFB6C1'/%3E%3Cpath d='M70 75 L130 75 L120 95 L80 95 L70 75Z' fill='%23FF69B4'/%3E%3Ctext x='100' y='150' font-size='24' text-anchor='middle' fill='%239b4b8e' font-weight='bold'%3E🍰 蛋糕%3C/text%3E%3C/svg%3E"
+                             alt="生日蛋糕彩蛋" loading="lazy">
+                        <div class="egg-label">✨ 甜蜜绽放 ✨</div>
+                    </div>
+                    <div class="egg-card">
+                        <img class="egg-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23E8F0FF'/%3E%3Ccircle cx='80' cy='90' r='25' fill='%239370DB'/%3E%3Ccircle cx='120' cy='90' r='25' fill='%239370DB'/%3E%3Cpath d='M70 95 L130 95 L120 120 L80 120 L70 95Z' fill='%23F4A261'/%3E%3Ctext x='100' y='160' font-size='22' text-anchor='middle' fill='%237b68ee' font-weight='bold'%3E🎈 心愿%3C/text%3E%3C/svg%3E"
+                             alt="气球心愿彩蛋" loading="lazy">
+                        <div class="egg-label">💜 愿望成真 💜</div>
+                    </div>
+                </div>
+                <div class="egg-text">
+                    🌟 愿你未来的每一天，都像这块蛋糕一样甜蜜，<br>
+                    像这只气球一样轻盈自由。<br>
+                    悄悄告诉你：所有美好都在路上，生日快乐，吴佳钰！
+                </div>
             </div>
         </div>
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 4 给你的信（原page5，现第4页） -->
+    <!-- 4 给你的信 -->
     <div class="page" id="page4">
         <div class="page-content">
             <div class="quick-nav" id="quickNav4"></div>
@@ -530,9 +601,9 @@
 
     // 全局变量
     let currentPage = 0;          // 0:首页, 1~4:蛋糕/留言墙/彩蛋/信
-    const TOTAL_PAGE = 4;         // 去掉了时光轴，共4个内容页
+    const TOTAL_PAGE = 4;         // 共4个内容页（蛋糕，留言墙，彩蛋，信）
     const PASSWORD = "1880";
-    let isAuthenticated = false;   // 本人已验证
+    let isAuthenticated = false;   // 本人已验证（影响留言墙删除按钮）
 
     // 渲染快捷导航（只显示4个板块：蛋糕、留言墙、彩蛋、信）
     function renderQuickNav(activeNum) {
@@ -611,21 +682,6 @@
             showPage(1);  // 从蛋糕页开始
         } else {
             alert("🔐 密码不正确哦！再试试看～");
-        }
-    }
-
-    // 彩蛋页密码验证
-    function checkPwd() {
-        const val = document.getElementById("pwdInput").value.trim();
-        if (val === PASSWORD) {
-            document.getElementById("secret").style.display = "block";
-            isAuthenticated = true;
-            // 如果当前留言墙已经显示，刷新一次让删除按钮出现
-            if (currentPage === 2) {
-                loadCloudMessages();
-            }
-        } else {
-            alert("❌ 密码错误，小惊喜暂未解锁~");
         }
     }
 
@@ -748,7 +804,6 @@
     window.goToVerify = goToVerify;
     window.goToFriend = goToFriend;
     window.checkVerify = checkVerify;
-    window.checkPwd = checkPwd;
     window.submitMessage = submitMessage;
     window.deleteMessage = deleteMessage;
     window.loadCloudMessages = loadCloudMessages;
@@ -762,8 +817,8 @@
         if (fb) fb.style.display = 'block';
     }
     
-    // 预备加载留言墙数据（虽然首页未显示，但无妨）
-    // 完全去掉时光轴，没有任何tap残留。所有体验流畅。
+    // 确保彩蛋页没有任何旧密码逻辑遗留，全部替换为图片+文字，不影响其他板块
+    // 所有页面功能完整保留: 蛋糕/留言墙/彩蛋(新)/信 以及朋友祝福、本人验证、留言删除权限
 </script>
 </body>
 </html>
