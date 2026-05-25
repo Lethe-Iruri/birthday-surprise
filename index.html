@@ -232,7 +232,7 @@
             transform: scale(1.02);
         }
 
-        /* 全新彩蛋页样式：两张图片 + 文字 */
+        /* 彩蛋页样式：两张图片 + 文字 */
         .easter-egg {
             text-align: center;
             padding: 20px 10px;
@@ -520,7 +520,7 @@
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 3 彩蛋页 · 全新两张图片 + 文字 (原有彩蛋密码移除，变成温馨彩蛋展示) -->
+    <!-- 3 彩蛋页 · 两张图片 + 文字 -->
     <div class="page" id="page3">
         <div class="page-content">
             <div class="quick-nav" id="quickNav3"></div>
@@ -816,9 +816,6 @@
         const fb = document.getElementById('cakeFallback');
         if (fb) fb.style.display = 'block';
     }
-    
-    // 确保彩蛋页没有任何旧密码逻辑遗留，全部替换为图片+文字，不影响其他板块
-    // 所有页面功能完整保留: 蛋糕/留言墙/彩蛋(新)/信 以及朋友祝福、本人验证、留言删除权限
 </script>
 </body>
 </html>
