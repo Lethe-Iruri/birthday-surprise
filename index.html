@@ -233,24 +233,26 @@
             text-align: center;
             padding: 20px 10px;
         }
-        /* 上方两张辅图：并排缩小 */
-        .egg-group-small {
+        /* 三张图片横向排列：两侧小图 + 中间大图 */
+        .egg-images-row {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
             gap: 20px;
-            margin: 20px 0 35px;
+            margin: 30px 0;
+            flex-wrap: wrap;
         }
-        .egg-card.small {
-            flex: 0 0 180px;
-            max-width: 80%;
-            padding: 12px 10px;
+        /* 两侧小图 */
+        .egg-card.side {
+            flex: 0 0 160px;
+            max-width: 40%;
+            padding: 12px;
         }
+        /* 中间主图（最大） */
         .egg-card.main {
-            flex: 0 0 340px;
-            max-width: 95%;
-            padding: 22px 16px;
-            margin: 0 auto 35px;
+            flex: 0 0 320px;
+            max-width: 90%;
+            padding: 20px;
         }
         .egg-card {
             background: rgba(255,250,245,0.6);
@@ -277,16 +279,6 @@
             0%,100% { transform: translateY(0); }
             50% { transform: translateY(-6px); }
         }
-        .egg-label {
-            margin-top: 14px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #9b4b8e;
-            background: rgba(255,250,210,0.7);
-            display: inline-block;
-            padding: 4px 18px;
-            border-radius: 40px;
-        }
         .egg-text {
             margin-top: 32px;
             background: rgba(255,240,245,0.85);
@@ -300,12 +292,23 @@
             letter-spacing: 1px;
             border: 1px solid rgba(255,225,200,0.8);
         }
-        @media (max-width: 600px) {
-            .egg-card.small {
-                flex: 0 0 140px;
+        @media (max-width: 768px) {
+            .egg-card.side {
+                flex: 0 0 130px;
             }
             .egg-card.main {
-                flex: 0 0 280px;
+                flex: 0 0 260px;
+            }
+        }
+        @media (max-width: 600px) {
+            .egg-images-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .egg-card.side,
+            .egg-card.main {
+                max-width: 85%;
+                width: 240px;
             }
             .egg-text {
                 font-size: 17px;
@@ -542,25 +545,28 @@
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 3 彩蛋页 -->
+    <!-- 3 彩蛋页 → 布局已调整：两侧小图 + 中间主图 -->
     <div class="page" id="page3">
         <div class="page-content">
             <div class="quick-nav" id="quickNav3"></div>
             <div class="easter-egg">
                 <h2 style="color: #a572c6; font-size: 28px; margin-bottom: 8px;">🎁 彩蛋时刻 🎁</h2>
-                <!-- 上方两张小图（辅图） -->
-                <div class="egg-group-small">
-                    <div class="egg-card small">
-                        <img class="egg-img" src="picture1.jpg" alt="彩蛋图片1" loading="lazy">
+                
+                <div class="egg-images-row">
+                    <!-- 左侧副图 -->
+                    <div class="egg-card side">
+                        <img class="egg-img" src="picture1.jpg" alt="彩蛋图片" loading="lazy">
                     </div>
-                    <div class="egg-card small">
-                        <img class="egg-img" src="picture2.jpg" alt="彩蛋图片2" loading="lazy">
+                    <!-- 中间主图（第三张） -->
+                    <div class="egg-card main">
+                        <img class="egg-img" src="picture3.jpg" alt="主图彩蛋" loading="lazy">
+                    </div>
+                    <!-- 右侧副图 -->
+                    <div class="egg-card side">
+                        <img class="egg-img" src="picture2.jpg" alt="彩蛋图片" loading="lazy">
                     </div>
                 </div>
-                <!-- 中间大图（主图：第三张照片） -->
-                <div class="egg-card main">
-                    <img class="egg-img" src="picture3.jpg" alt="主图彩蛋" loading="lazy">
-                </div>
+
                 <div class="egg-text">
 🌟 以前总是收到你亲手画的礼物，超珍贵超喜欢～
 这次我也学着亲手做了拼豆送给你，
