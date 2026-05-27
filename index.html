@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>生日快乐 · 专属惊喜</title>
-    <!-- Google Fonts 稳定加载 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <!-- Supabase 官方 SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* 全局样式 + 后备字体 */
         * {
             margin: 0;
             padding: 0;
@@ -78,7 +76,6 @@
             border: 1px solid rgba(255,255,240,0.3);
         }
 
-        /* 背景图优雅降级 - 蛋糕/留言墙/彩蛋/信 */
         #page1 {
             background: url('/231025-tian/birthday-surprise/edit/main/bg1.jpg') no-repeat center center / cover;
             background-color: #fbe9f0;
@@ -232,7 +229,6 @@
             transform: scale(1.02);
         }
 
-        /* 彩蛋页样式：两张图片 + 文字 */
         .easter-egg {
             text-align: center;
             padding: 20px 10px;
@@ -474,7 +470,7 @@
         <div class="page-content">
             <div class="choose-box">
                 <h2>🎉 请选择你的身份 🎉</h2>
-                <button class="choose-btn" onclick="goToVerify()">🎂 我是吴佳钰本人</button>
+                <button class="choose-btn" onclick="goToVerify()">🎂 我是本人</button>
                 <button class="choose-btn" onclick="goToFriend()">💌 我是朋友送祝福</button>
             </div>
         </div>
