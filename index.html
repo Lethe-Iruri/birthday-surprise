@@ -233,12 +233,18 @@
             text-align: center;
             padding: 20px 10px;
         }
-        .egg-images {
+        /* 图片分组容器 */
+        .egg-group-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 28px;
-            margin: 30px 0 25px;
+            margin: 30px 0;
+        }
+        /* 单张图片单独一行 */
+        .egg-group-single {
+            margin: 0 auto 30px;
+            max-width: 260px;
         }
         .egg-card {
             flex: 0 0 260px;
@@ -540,14 +546,19 @@
             <div class="quick-nav" id="quickNav3"></div>
             <div class="easter-egg">
                 <h2 style="color: #a572c6; font-size: 28px; margin-bottom: 8px;">🎁 彩蛋时刻 🎁</h2>
-                <div class="egg-images">
+                <!-- 第一组：前两张图片同行 -->
+                <div class="egg-group-row">
                     <div class="egg-card">
-                        <img class="egg-img" src="picture1.jpg"
-                             alt="生日蛋糕彩蛋" loading="lazy">
+                        <img class="egg-img" src="picture1.jpg" alt="生日蛋糕彩蛋" loading="lazy">
                     </div>
                     <div class="egg-card">
-                        <img class="egg-img" src="picture2.jpg"
-                             alt="气球心愿彩蛋" loading="lazy">
+                        <img class="egg-img" src="picture2.jpg" alt="气球心愿彩蛋" loading="lazy">
+                    </div>
+                </div>
+                <!-- 第二组：第三张图片单独一行 -->
+                <div class="egg-group-single">
+                    <div class="egg-card">
+                        <img class="egg-img" src="picture3.jpg" alt="专属彩蛋图片" loading="lazy">
                     </div>
                 </div>
                 <div class="egg-text">
@@ -575,7 +586,6 @@
 愿你被世界温柔以待，永远闪闪发光 💜
             </div>
         </div>
-        <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
     <!-- 朋友送祝福页 -->
