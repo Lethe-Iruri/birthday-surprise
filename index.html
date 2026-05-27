@@ -233,26 +233,29 @@
             text-align: center;
             padding: 20px 10px;
         }
-        /* 图片分组容器 */
-        .egg-group-row {
+        /* 上方两张辅图：并排缩小 */
+        .egg-group-small {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 28px;
-            margin: 30px 0;
+            gap: 20px;
+            margin: 20px 0 35px;
         }
-        /* 单张图片单独一行 */
-        .egg-group-single {
-            margin: 0 auto 30px;
-            max-width: 260px;
+        .egg-card.small {
+            flex: 0 0 180px;
+            max-width: 80%;
+            padding: 12px 10px;
+        }
+        .egg-card.main {
+            flex: 0 0 340px;
+            max-width: 95%;
+            padding: 22px 16px;
+            margin: 0 auto 35px;
         }
         .egg-card {
-            flex: 0 0 260px;
-            max-width: 90%;
             background: rgba(255,250,245,0.6);
             backdrop-filter: blur(4px);
             border-radius: 32px;
-            padding: 18px 12px 14px;
             transition: transform 0.2s ease;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
@@ -261,7 +264,6 @@
         }
         .egg-img {
             width: 100%;
-            max-width: 200px;
             height: auto;
             margin: 0 auto;
             display: block;
@@ -269,7 +271,6 @@
             background: #fff9ef;
             box-shadow: 0 6px 14px rgba(0,0,0,0.1);
             transition: 0.2s;
-            /* 图片悬浮动画 */
             animation: float 2.5s ease-in-out infinite;
         }
         @keyframes float {
@@ -300,8 +301,11 @@
             border: 1px solid rgba(255,225,200,0.8);
         }
         @media (max-width: 600px) {
-            .egg-card {
-                flex: 0 0 220px;
+            .egg-card.small {
+                flex: 0 0 140px;
+            }
+            .egg-card.main {
+                flex: 0 0 280px;
             }
             .egg-text {
                 font-size: 17px;
@@ -357,7 +361,6 @@
             font-size: 28px;
             margin: 15px 0;
             letter-spacing: 8px;
-            /* 星光闪烁动画 */
             animation: sparkle 1.2s infinite alternate;
         }
         @keyframes sparkle {
@@ -413,7 +416,6 @@
         .choose-btn:hover {
             background: #7b68ee;
             transform: scale(1.03);
-            /* 按钮弹跳效果 */
             animation: bounce 0.3s ease;
         }
         @keyframes bounce {
@@ -546,20 +548,18 @@
             <div class="quick-nav" id="quickNav3"></div>
             <div class="easter-egg">
                 <h2 style="color: #a572c6; font-size: 28px; margin-bottom: 8px;">🎁 彩蛋时刻 🎁</h2>
-                <!-- 第一组：前两张图片同行 -->
-                <div class="egg-group-row">
-                    <div class="egg-card">
-                        <img class="egg-img" src="picture1.jpg" alt="生日蛋糕彩蛋" loading="lazy">
+                <!-- 上方两张小图（辅图） -->
+                <div class="egg-group-small">
+                    <div class="egg-card small">
+                        <img class="egg-img" src="picture1.jpg" alt="彩蛋图片1" loading="lazy">
                     </div>
-                    <div class="egg-card">
-                        <img class="egg-img" src="picture2.jpg" alt="气球心愿彩蛋" loading="lazy">
+                    <div class="egg-card small">
+                        <img class="egg-img" src="picture2.jpg" alt="彩蛋图片2" loading="lazy">
                     </div>
                 </div>
-                <!-- 第二组：第三张图片单独一行 -->
-                <div class="egg-group-single">
-                    <div class="egg-card">
-                        <img class="egg-img" src="picture3.jpg" alt="专属彩蛋图片" loading="lazy">
-                    </div>
+                <!-- 中间大图（主图：第三张照片） -->
+                <div class="egg-card main">
+                    <img class="egg-img" src="picture3.jpg" alt="主图彩蛋" loading="lazy">
                 </div>
                 <div class="egg-text">
 🌟 以前总是收到你亲手画的礼物，超珍贵超喜欢～
@@ -571,7 +571,7 @@
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 4 给你的信（已移除 typing 类名，无打字机） -->
+    <!-- 4 给你的信 -->
     <div class="page" id="page4">
         <div class="page-content">
             <div class="quick-nav" id="quickNav4"></div>
