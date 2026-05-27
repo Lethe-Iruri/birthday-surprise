@@ -263,6 +263,12 @@
             background: #fff9ef;
             box-shadow: 0 6px 14px rgba(0,0,0,0.1);
             transition: 0.2s;
+            /* 图片悬浮动画 */
+            animation: float 2.5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
         .egg-label {
             margin-top: 14px;
@@ -345,6 +351,12 @@
             font-size: 28px;
             margin: 15px 0;
             letter-spacing: 8px;
+            /* 星光闪烁动画 */
+            animation: sparkle 1.2s infinite alternate;
+        }
+        @keyframes sparkle {
+            from { opacity: 0.6; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.08); }
         }
         .cake-img {
             width: 480px;
@@ -395,6 +407,12 @@
         .choose-btn:hover {
             background: #7b68ee;
             transform: scale(1.03);
+            /* 按钮弹跳效果 */
+            animation: bounce 0.3s ease;
+        }
+        @keyframes bounce {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .friend-page {
@@ -463,15 +481,15 @@
 <body>
 
 <div class="container">
-    <h1 class="title">✨ 专属生日惊喜 ✨</h1>
+    <h1 class="title">✨ 吴佳钰 · 生日快乐 · 专属惊喜 ✨</h1>
 
     <!-- 身份选择页 -->
     <div class="page active" id="page0">
         <div class="page-content">
             <div class="choose-box">
-                <h2>🎉 请选择你的身份 🎉</h2>
-                <button class="choose-btn" onclick="goToVerify()">🎂 我是本人</button>
-                <button class="choose-btn" onclick="goToFriend()">💌 我是朋友送祝福</button>
+                <h2>🎉 欢迎来到佳钰的生日小世界 🎉</h2>
+                <button class="choose-btn" onclick="goToVerify()">🎂 我是佳钰本人</button>
+                <button class="choose-btn" onclick="goToFriend()">💌 我来送生日祝福</button>
             </div>
         </div>
     </div>
@@ -480,9 +498,9 @@
     <div class="page" id="verifyPage">
         <div class="page-content">
             <div class="game-box">
-                <h2>🔐 请输入专属密码</h2>
-                <input type="text" class="game-input" id="verifyPwd" placeholder="请输入密码" autocomplete="off">
-                <button class="game-btn" onclick="checkVerify()">验证进入</button>
+                <h2>🔐 佳钰专属解锁密码</h2>
+                <input type="password" class="game-input" id="verifyPwd" placeholder="请输入密码" autocomplete="off">
+                <button class="game-btn" onclick="checkVerify()">✨ 解锁惊喜 ✨</button>
             </div>
             <div class="back-btn">
                 <button onclick="goToHome()">返回首页</button>
@@ -499,13 +517,13 @@
                 <div class="fireworks">🎆 🎉 🎈 ✨ 🎊 💜</div>
                 <img class="cake-img" src="cake.jpg" alt="生日蛋糕" onerror="this.style.display='none';document.getElementById('cakeFallback').style.display='block';">
                 <div id="cakeFallback" class="cake-fallback">🎂❤️🍰</div>
-                <p class="cake-desc">愿所有温柔与惊喜，都如期奔赴于你</p>
+                <p class="cake-desc">愿你永远被爱包围，永远明亮自在，岁岁平安，万事顺遂 💜</p>
             </div>
         </div>
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 2 留言墙（云端跨设备） -->
+    <!-- 2 留言墙 -->
     <div class="page" id="page2">
         <div class="page-content">
             <div class="quick-nav" id="quickNav2"></div>
@@ -516,7 +534,7 @@
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 3 彩蛋页 · 两张图片 + 文字 -->
+    <!-- 3 彩蛋页 -->
     <div class="page" id="page3">
         <div class="page-content">
             <div class="quick-nav" id="quickNav3"></div>
@@ -533,25 +551,28 @@
                     </div>
                 </div>
                 <div class="egg-text">
-                    🌟 之前一直都是收到你亲手画的礼物，<br>
-                    于是这次在教程的帮助下亲手做了个拼豆作为你的生日礼物<br>
-                    （不知道你喜不喜欢）
+🌟 以前总是收到你亲手画的礼物，超珍贵超喜欢～
+这次我也学着亲手做了拼豆送给你，
+这是我第一次做手工礼物，希望你会喜欢呀 💜
                 </div>
             </div>
         </div>
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
     </div>
 
-    <!-- 4 给你的信 -->
+    <!-- 4 给你的信（已移除 typing 类名，无打字机） -->
     <div class="page" id="page4">
         <div class="page-content">
             <div class="quick-nav" id="quickNav4"></div>
             <div class="letter">
-✨ 提笔写下这些话，只想认真祝你生日快乐。<br><br>
-特意为你做了这个小小的专属网站，把祝福、心意和所有想说的话都藏在这里。<br>
-希望往后岁岁年年，你永远被温柔以待，永远自在明亮，永远保持自己喜欢的模样。<br>
-愿清风绕肩，美好常驻，而我们，会一直是好朋友。<br><br>
-💜 生日快乐，吴佳钰！ 💜
+✨ 提笔写下这些话，只想认真祝你生日快乐。
+
+特意为你做了这个小小的专属网站，把祝福、心意和所有想说的话都藏在这里。
+希望往后岁岁年年，你永远被温柔以待，永远自在明亮，永远保持自己喜欢的模样。
+愿清风绕肩，美好常驻，而我们，会一直是好朋友。
+
+生日快乐，吴佳钰！
+愿你被世界温柔以待，永远闪闪发光 💜
             </div>
         </div>
         <div class="back-btn"><button onclick="goToHome()">返回首页</button></div>
@@ -594,12 +615,12 @@
     }
 
     // 全局变量
-    let currentPage = 0;          // 0:首页, 1~4:蛋糕/留言墙/彩蛋/信
-    const TOTAL_PAGE = 4;         // 共4个内容页（蛋糕，留言墙，彩蛋，信）
+    let currentPage = 0;
+    const TOTAL_PAGE = 4;
     const PASSWORD = "1880";
-    let isAuthenticated = false;   // 本人已验证（影响留言墙删除按钮）
+    let isAuthenticated = false;
 
-    // 渲染快捷导航（只显示4个板块：蛋糕、留言墙、彩蛋、信）
+    // 渲染快捷导航
     function renderQuickNav(activeNum) {
         const pagesConfig = [
             { name: "🎂 蛋糕", id: 1 },
@@ -612,12 +633,10 @@
                 ${pagesConfig.map(p => `<button data-page="${p.id}" class="${activeNum === p.id ? 'active' : ''}">${p.name}</button>`).join('')}
             </div>
         `;
-        // 向每个页面的快捷导航容器注入内容 (1-4)
         for (let i = 1; i <= 4; i++) {
             const container = document.getElementById(`quickNav${i}`);
             if (container) container.innerHTML = navHtml;
         }
-        // 绑定点击事件
         document.querySelectorAll('.quick-nav button').forEach(btn => {
             btn.removeEventListener('click', handleQuickNavClick);
             btn.addEventListener('click', handleQuickNavClick);
@@ -632,10 +651,9 @@
         }
     }
 
-    // 展示页面 (1~4)
+    // 展示页面
     function showPage(n) {
         if (n < 1 || n > TOTAL_PAGE) return;
-        // 隐藏所有主要页面 + 身份页面 + 验证页 + 朋友页，仅显示指定的内容页
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(`page${n}`).classList.add('active');
         currentPage = n;
@@ -659,27 +677,25 @@
             nextBtn.disabled = false;
         }
         
-        // 每次切换页面刷新快捷导航激活样式
         renderQuickNav(n);
         
-        // 如果是留言墙页面，从云端加载数据
         if (n === 2) {
             loadCloudMessages();
         }
     }
 
-    // 身份验证 (本人通道)
+    // 身份验证
     function checkVerify() {
         const val = document.getElementById("verifyPwd").value.trim();
         if (val === PASSWORD) {
             isAuthenticated = true;
-            showPage(1);  // 从蛋糕页开始
+            showPage(1);
         } else {
-            alert("🔐 密码不正确哦！再试试看～");
+            alert("🔐 密码不对哦～再试试吧！");
         }
     }
 
-    // 返回首页（身份选择）
+    // 返回首页
     function goToHome() {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page0').classList.add('active');
@@ -697,7 +713,7 @@
         document.getElementById('friendPage').classList.add('active');
     }
 
-    // 删除留言（仅认证用户可见）
+    // 删除留言
     async function deleteMessage(id, cardElement) {
         if (!confirm("确定要删除这条祝福吗？删除后无法恢复。")) return;
         try {
@@ -709,7 +725,7 @@
             cardElement.remove();
             const remainingCards = document.querySelectorAll('#mainMessageWall .message-card');
             if (remainingCards.length === 0) {
-                document.getElementById('mainMessageWall').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;font-size:17px;">✨ 暂时还没有祝福，快来写下第一条吧～ ✨</p>';
+                document.getElementById('mainMessageWall').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;font-size:17px;">💌 还没有人留下祝福，快来成为第一个吧～</p>';
             }
         } catch (err) {
             alert("删除失败: " + (err.message || "网络错误"));
@@ -717,7 +733,7 @@
         }
     }
 
-    // 加载留言墙（云端）
+    // 加载留言墙
     async function loadCloudMessages() {
         const box = document.getElementById("mainMessageWall");
         if (!box) return;
@@ -744,7 +760,6 @@
                 textP.textContent = item.content || "祝福满满～";
                 card.appendChild(nameDiv);
                 card.appendChild(textP);
-                // 只有通过本人验证的用户（输入了密码1880）才可以删除
                 if (isAuthenticated) {
                     const delBtn = document.createElement("button");
                     delBtn.textContent = "✖ 删除";
@@ -760,7 +775,7 @@
         }
     }
 
-    // 朋友提交祝福
+    // 提交祝福
     async function submitMessage() {
         let name = document.getElementById("name").value.trim();
         let content = document.getElementById("content").value.trim();
@@ -778,7 +793,8 @@
             alert("🎉 祝福提交成功！已经永久保存在云端啦 🎉");
             document.getElementById("name").value = "";
             document.getElementById("content").value = "";
-            if (currentPage === 2) loadCloudMessages();  // 如果留言墙当前可见则刷新
+            goToHome();
+            if (currentPage === 2) loadCloudMessages();
         } catch (err) {
             alert("提交失败，请稍后重试 T_T\n" + (err.message || ""));
             console.error(err);
@@ -793,7 +809,7 @@
         if (currentPage > 1) showPage(currentPage - 1);
     });
 
-    // 全局挂载函数，供HTML调用
+    // 全局挂载函数
     window.goToHome = goToHome;
     window.goToVerify = goToVerify;
     window.goToFriend = goToFriend;
@@ -802,7 +818,7 @@
     window.deleteMessage = deleteMessage;
     window.loadCloudMessages = loadCloudMessages;
 
-    // 初始化：导航按钮隐藏，确保蛋糕页图片后备
+    // 初始化
     document.getElementById('navButtons').style.display = 'none';
     const cakeImgElem = document.querySelector('.cake-img');
     if (cakeImgElem && cakeImgElem.complete && cakeImgElem.naturalWidth === 0) {
